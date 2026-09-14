@@ -1,0 +1,15 @@
+{
+  "name": "kwiho-school-fee-management",
+  "version": "2.0.0",
+  "private": true,
+  "description": "KWIHOTA SCHOOL annual family fee management system",
+  "main": "server.js",
+  "scripts": {"start": "node server.js"},
+  "engines": {"node": ">=20"},
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "express": "^5.1.0",
+    "express-session": "^1.18.1",
+    "sql.js": "^1.13.0"
+  }
+}
