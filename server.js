@@ -102,7 +102,7 @@ app.use(express.urlencoded({extended:false}));
 app.use(session({
  secret:process.env.SESSION_SECRET||"dev-only-change-this-secret",
  resave:false,saveUninitialized:false,
- cookie:{httpOnly:true,sameSite:"lax",secure:process.env.NODE_ENV==="production",maxAge:8*60*60*1000}
+ cookie:{httpOnly:true,sameSite:"lax",secure:false,maxAge:8*60*60*1000}
 }));
 
 const auth=(req,res,next)=>{if(!req.session.staffId)return res.status(401).json({error:"Authentication required"});next()};
