@@ -113,7 +113,7 @@ app.post("/api/login",(req,res)=>{
  const {email,password}=req.body;
  const staff=db.prepare("SELECT s.*,r.role FROM staff_profiles s JOIN user_roles r ON r.staff_id=s.id WHERE lower(s.email)=lower(?)").get(email||"");
  if(!staff||!bcrypt.compareSync(password||"",staff.password_hash))return res.status(401).json({error:"Invalid email or password"});
- req.session.staffId=staff.id;res.json({id:staff.id,email:staff.email,fullName:staff.full_name,role:staff.role});
+ req.session.staffId=staff.id;req.session.save(()=res.json({id:staff.id,email:staff.email,fullName:staff.full_name,role:staff.role}));
 });
 app.post("/api/logout",(req,res)=>req.session.destroy(()=>res.json({ok:true})));
 app.get("/api/me",(req,res)=>{if(!req.session.staffId)return res.status(401).json({error:"Not signed in"});const s=db.prepare("SELECT s.id,s.email,s.full_name fullName,r.role FROM staff_profiles s JOIN user_roles r ON r.staff_id=s.id WHERE s.id=?").get(req.session.staffId);res.json(s)});
